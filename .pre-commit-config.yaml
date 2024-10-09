@@ -1,0 +1,150 @@
+ci:
+    skip: # cant resolve executable in pre-commit.ci Service
+        [
+            black,
+            check-added-large-files,
+            check-toml,
+            check-yaml,
+            end-of-file-fixer,
+            trailing-whitespace,
+            clang-format,
+            cpplint,
+            cppcheck,
+            pyupgrade,
+        ]
+
+repos:
+    - repo: https://github.com/astral-sh/ruff-pre-commit
+      # Ruff version. TODO: remove flake8 in future
+      rev: "v0.2.1"
+      hooks:
+          - id: ruff
+            args: [--fix]
+    - repo: https://github.com/psf/black
+      rev: 24.2.0
+      hooks:
+          - id: black
+            name: black
+            entry: black
+            language: system
+            types: [python]
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v4.5.0 # Use the ref you want to point at
+      hooks:
+          - id: check-added-large-files
+            name: Check for added large files
+            entry: check-added-large-files
+            language: system
+            exclude: |
+                (?x)^(
+                lib/strtk/strtk.hpp|pytest
+                )$
+          - id: check-toml
+            name: Check Toml
+            entry: check-toml
+            language: system
+            types: [toml]
+          - id: check-yaml
+            name: Check Yaml
+            entry: check-yaml
+            language: system
+            types: [yaml]
+            args: ["--unsafe"]
+          - id: end-of-file-fixer
+            name: Fix End of Files
+            entry: end-of-file-fixer
+            language: system
+            types: [text]
+            stages: [commit, push, manual]
+            exclude: (docs/|docker/)
+          - id: trailing-whitespace
+            name: Trim Trailing Whitespace
+            entry: trailing-whitespace-fixer
+            language: system
+            types: [text]
+            stages: [commit, push, manual]
+    - repo: https://github.com/pocc/pre-commit-hooks
+      rev: v1.3.5
+      hooks:
+          - id: clang-format
+            args: [--style=Google, -i]
+          - id: cpplint
+            args: [
+                    --exclude=lib/*,
+                    --exclude=cpputils/datetime_utils.hpp,
+                    --exclude=cmake-build-default/*,
+                    "--filter=-build/include,-build/c++11", # not sort include ,  regex / chrono issue
+                ]
+          - id: cppcheck
+            name: cppcheck
+            entry: cppcheck
+            language: system
+            args:
+                [
+                    inst/filet,
+                    "--suppress=syntaxError:cpputils/datetime_utils.hpp",
+                    -DVERSION_INFO=$VERSION_INFO,
+                    --std=c++17,
+                ]
+            files: \.(c|h|cpp)$
+    - repo: https://github.com/pycqa/flake8
+      rev: "7.0.0" # pick a git hash / tag to point to
+      hooks:
+          - id: flake8
+            name: flake8
+            entry: flake8
+            language: python
+            types: [python]
+            require_serial: true
+            additional_dependencies: [Flake8-pyproject]
+    - repo: https://github.com/PyCQA/autoflake
+      rev: v2.2.1
+      hooks:
+          - id: autoflake
+            name: autoflake
+            entry: autoflake
+            language: python
+            "types": [python]
+            require_serial: true
+            args:
+                - "--in-place"
+                - "--expand-star-imports"
+                - "--remove-duplicate-keys"
+                - "--remove-unused-variables"
+    - repo: https://github.com/asottile/pyupgrade
+      rev: v3.15.0
+      hooks:
+          - id: pyupgrade
+            name: pyupgrade
+            description: Automatically upgrade syntax for newer versions.
+            entry: pyupgrade
+            language: system
+            types: [python]
+            args: [--py38-plus]
+    - repo: https://github.com/pre-commit/mirrors-prettier
+      rev: v4.0.0-alpha.8
+      hooks:
+          - id: prettier
+    - repo: https://github.com/pycqa/isort
+      rev: 5.13.2
+      hooks:
+          - id: isort
+            name: isort (python)
+          - id: isort
+            name: isort (cython)
+            types: [cython]
+          - id: isort
+            name: isort (pyi)
+            types: [pyi]
+    - repo: https://github.com/cheshirekow/cmake-format-precommit
+      rev: v0.6.13
+      hooks:
+          - id: cmake-format
+            additional_dependencies: [pyyaml]
+            types: [file]
+            files: (\.cmake|CMakeLists.txt)(.in)?$
+    - repo: https://github.com/sirosen/check-jsonschema
+      rev: 0.28.0
+      hooks:
+          - id: check-github-actions
+          - id: check-github-workflows
