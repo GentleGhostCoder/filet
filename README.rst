@@ -2,9 +2,9 @@
 Avro Schema Generator - Tool for generating Avro schema from JSON
 ==================
 
-This tool is no longer maintained and is published solely for reference and logic reuse purposes.
+.. warning::
 
-
+   This tool is no longer maintained and is published solely for reference and logic reuse purposes.
 Installation
 ============
 
