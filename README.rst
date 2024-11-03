@@ -1,11 +1,8 @@
 ==================
-Trino Staging Tool for Hive Catalog (S3 - Objects)
+Avro Schema Generator - Tool for generating Avro schema from JSON
 ==================
 
-TODO´s / Ideas
-~~~~~~~~~~~~~~
-
--
+This tool is no longer maintained and is published solely for reference and logic reuse purposes.
 
 CI/CD Status
 ============
