@@ -2,7 +2,7 @@ import logging
 from typing import Annotated, Optional, Union
 
 from pydantic import BaseModel, ConfigDict, PlainSerializer, SecretStr
-from pydantic_settings import SettingsConfigDict
+from pydantic_settings import SettingsConfigDict, BaseSettings
 from trino.auth import BasicAuthentication
 from urllib3 import disable_warnings
 import urllib3.exceptions
@@ -10,7 +10,7 @@ import urllib3.exceptions
 from filet.config.boto3_client import Boto3ClientSettings
 from filet.config.cache_db import store
 from filet.config.utils.default_ca_path import default_ca_path
-from filet.patches.pydantic import AnyUrl, BaseSettings, Field, model_validator
+from filet.patches.pydantic import AnyUrl, Field, model_validator
 
 logger = logging.getLogger(__name__)
 
