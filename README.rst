@@ -2,8 +2,6 @@
 Trino Staging Tool for Hive Catalog (S3 - Objects)
 ==================
 
-Please read the `Docs <https://datafactory.midas.pages.df.server.lan/filet/>`_  for more information.
-
 TODO´s / Ideas
 ~~~~~~~~~~~~~~
 

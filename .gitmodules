@@ -1,10 +1,9 @@
-
 [submodule "lib/strtk"]
 	path = lib/strtk
 	url = https://github.com/ArashPartow/strtk.git
-[submodule "lib/rapidjson"]
-	path = lib/rapidjson
-	url = https://github.com/Tencent/rapidjson.git
 [submodule "lib/catch2"]
 	path = lib/catch2
 	url = https://github.com/catchorg/Catch2.git
+[submodule "lib/rapidjson"]
+	path = lib/rapidjson
+	url = https://github.com/Tencent/rapidjson.git

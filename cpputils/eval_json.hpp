@@ -18,16 +18,20 @@ namespace py = pybind11;
 
 namespace json {  // cppcheck-suppress syntaxError
 
-struct JsonValue;
+// struct JsonValue
+//     : std::variant<std::map<std::string, JsonValue>, std::vector<JsonValue>, std::nullptr_t, bool, int, unsigned,
+//                    int64_t, uint64_t, double, std::string, py::object> {
+//   using variant::variant;  // Inherit constructors.
+// };
 
-using JsonMap = std::unordered_map<std::string, JsonValue>;
+struct __attribute__ ((visibility ("default"))) JsonValue
+  : std::variant<std::map<std::string, JsonValue>, std::vector<JsonValue>, std::nullptr_t, bool, int, unsigned,
+                 int64_t, uint64_t, double, std::string, py::object> {
+                   using variant::variant;  // Inherit constructors.
+                 };
+using JsonMap = std::map<std::string, JsonValue>;
 using JsonArray = std::vector<JsonValue>;
 
-struct JsonValue
-    : std::variant<JsonMap, JsonArray, std::nullptr_t, bool, int, unsigned,
-                   int64_t, uint64_t, double, std::string, py::object> {
-  using variant::variant;  // Inherit constructors.
-};
 
 enum class JsonType { Array, Record, Unknown };
 

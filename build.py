@@ -60,7 +60,7 @@ def build(setup_kwargs):
         Extension(
             "filet._cpputils",
             [*files],
-            include_dirs=[path, *ext_paths],  # cxx_std=17,
+            include_dirs=[path, *ext_paths],  cxx_std=11,
             extra_compile_args=extra_compile_args,
         ),
     ]

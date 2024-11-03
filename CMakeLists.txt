@@ -6,7 +6,7 @@ project(cpputils LANGUAGES CXX)
 set(DEBUG_MODE=1)
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(PythonLibs REQUIRED)
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 include_directories(${PYTHON_INCLUDE_DIRS})
 
 set(PROJECT_DIR cpputils)
@@ -27,7 +27,6 @@ find_package(
   Python3
   COMPONENTS Interpreter Development
   REQUIRED)
-set(PYTHON_EXECUTABLE "${Python3_EXECUTABLE}")
 
 include_directories(${PROJECT_DIR})
 include_directories(${EXT_DIR})

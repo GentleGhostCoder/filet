@@ -2,7 +2,7 @@
 name = "filet"
 version = "0.0.2"  # <<FORCE_BUMP>>
 description = "Generate / Analyze schemas for various file formats."
-authors = ["Semjon Geist <semjon.geist@ionos.com>"]
+authors = ["Semjon Geist <mail@semjon-geist.de>"]
 license = "GNU GPLv3"
 readme = "README.rst"
 homepage = "https://github.com/GentleGhostCoder/filet"
@@ -88,22 +88,42 @@ skip-string-normalization = false
 line-length = 120
 exclude =[".git","__pycache__","docs/source/conf.py,build*","dist/*",".venv","ext/*","setup*","tests/*","cmake-build-debug*"]
 
-[tool.ruff.lint]
-ignore = ["E501","D100","N813"]
-
 [tool.ruff.lint.mccabe]
 max-complexity = 10
 
-[tool.flake8]
-select = ["B","B9","C","D","DAR","E","F","N","RST","B","W"]
-ignore = ["E203","E501","RST201","RST203","RST301","W503","D100","N813","RST304","WPS412"]
-max-line-length = 120
-max-complexity = 10
-docstring-convention = "google"
-per-file-ignores = ["tests/*:S101"]
-exclude =[".git","__pycache__","docs/source/conf.py,build*","dist/*",".venv","ext/*","setup*","tests/*","cmake-build-debug*"]
-strictness="long"
-docstring_style="sphinx"
+[tool.ruff.lint]
+extend-select = [
+    "B",           # flake8-bugbear
+    "I",           # isort
+    "ARG",         # flake8-unused-arguments
+    "C4",          # flake8-comprehensions
+    "EM",          # flake8-errmsg
+    "ICN",         # flake8-import-conventions
+    "G",           # flake8-logging-format
+    "PGH",         # pygrep-hooks
+    "PIE",         # flake8-pie
+    "PL",          # pylint
+    "PT",          # flake8-pytest-style
+    "PTH",         # flake8-use-pathlib
+    "RET",         # flake8-return
+    "RUF",         # Ruff-specific
+    "SIM",         # flake8-simplify
+    "T20",         # flake8-print
+    "UP",          # pyupgrade
+    "YTT",         # flake8-2020
+    "EXE",         # flake8-executable
+    "NPY",         # NumPy specific rules
+    "PD",          # pandas-vet
+]
+ignore = [
+    "PLR09",    # Too many X
+    "PLR2004",  # Magic comparison
+]
+#ignore = ["E501","D100","N813"]
+isort.required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["T20"]
 
 [tool.mypy]
 strict = false
@@ -147,8 +167,7 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.pytest.ini_options]
-pythonpath = ["src"]
-minversion = "6.0"
+minversion = "8.0"
 addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
 xfail_strict = true
 filterwarnings = ["error"]

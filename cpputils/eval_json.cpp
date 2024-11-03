@@ -843,7 +843,7 @@ JsonValue PythonDictVisitor::operator()(const py::object &obj) const {
 }
 
 JsonValue PythonDictVisitor::visit_dict(const py::dict &dict) const {
-  std::unordered_map<std::string, JsonValue> map;
+  std::map<std::string, JsonValue> map;
   for (const auto &item : dict) {
     map[py::cast<std::string>(item.first)] =
         (*this)(py::cast<py::object>(item.second));

@@ -2,4 +2,4 @@
 
 __author__ = "Semjon Geist"
 __email__ = "semjon.geist@ionos.com"
-__version__ = "3.3.28"  # <<FORCE_BUMP>>
+__version__ = "0.0.2"  # <<FORCE_BUMP>>
